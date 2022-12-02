@@ -1,0 +1,22 @@
+listener:
+    address: 0.0.0.0
+    port: 443
+    tls:
+        private-key: /etc/ssl/private/github-hook.key
+        public-key: /etc/ssl/certs/github-hook.crt
+targets:
+    jenkins:
+        url: https://jenkins.example.com/github-webhook/
+        jenkins-validation: true
+        events: [ping, push, pull_request]
+        secret: super-secret # static webhook secret
+    security:
+        url: https://security.example.com/hook
+        events: [ping, code_scanning_alert, dependabot_alert, security_advisory]
+        # secret will be loaded from https://vault.example.com/v1/github-secrets/data/hooks/security:secret
+vault:
+    address: https://vault.example.com
+    # token-file: /var/vault/token # default to VAULT_TOKEN
+    mount: github-secrets
+    secret: hooks/%s
+    field: secret
