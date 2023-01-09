@@ -1,0 +1,35 @@
+before:
+  hooks:
+    - go mod tidy
+builds:
+  - env:
+      - CGO_ENABLED=0
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    flags:
+      - -trimpath
+    ldflags:
+      - "-s -w -X github.com/nexthink-oss/github-hook-proxy/cmd.buildVersion={{.Version}} -X github.com/nexthink-oss/github-hook-proxy/cmd.buildCommit={{.ShortCommit}} -X github.com/nexthink-oss/github-hook-proxy/cmd.buildDate={{.Date}}"
+    goos:
+      - freebsd
+      - linux
+    goarch:
+      - amd64
+      - arm
+      - arm64
+    binary: github-hook-proxy
+archives:
+  - format: zip
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+snapshot:
+  name_template: "{{ .Tag }}-next"
+checksum:
+  name_template: "{{ .ProjectName }}_{{ .Version }}_SHA256SUMS"
+  algorithm: sha256
+release:
+  draft: false
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
