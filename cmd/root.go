@@ -120,6 +120,6 @@ func ListenAndServe(s *http.Server) (err error) {
 }
 
 func Forbidden(w http.ResponseWriter, r *http.Request) {
-	logger.Debug("forbidden", zap.String("path", r.URL.Path))
+	logger.Debug("forbidden", zap.String("source", r.RemoteAddr))
 	w.WriteHeader(http.StatusForbidden)
 }
