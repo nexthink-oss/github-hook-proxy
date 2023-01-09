@@ -41,7 +41,16 @@ func (t *Target) FillHost() (err error) {
 }
 
 func (t *Target) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
-	logger := zap.L().With(zap.String("target", t.host), zap.Strings("source", util.GetReqSource(req)), zap.String("method", req.Method))
+	logger := zap.L().With(zap.String("target", t.host), zap.String("method", req.Method))
+
+	source, err := util.GetReqSource(req)
+	if err != nil {
+		logger.With(zap.String("source", req.RemoteAddr)).Warn("received invalid X-Forwarded-For header")
+		rw.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	logger = logger.With(zap.Strings("source", source))
+
 	if req.Method == "POST" {
 		if t.Jenkins && util.IsJenkinsValidationRequest(req) {
 			logger.Info("X-Jenkins-Validation request")
