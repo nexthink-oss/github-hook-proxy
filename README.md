@@ -1,3 +1,6 @@
+[![CodeQL](https://github.com/nexthink-oss/github-hook-proxy/actions/workflows/codeql.yml/badge.svg)](https://github.com/nexthink-oss/github-hook-proxy/actions/workflows/codeql.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/nexthink-oss/github-hook-proxy)](https://goreportcard.com/report/github.com/nexthink-oss/github-hook-proxy)
+
 # GitHub Hook Proxy
 
 A validating proxy to facilitate secure delivery of GitHub webhook payloads to multiple targets behind a firewall.
