@@ -7,7 +7,7 @@ import (
 
 	"github.com/nexthink-oss/github-hook-proxy/internal/util"
 
-	"github.com/google/go-github/v48/github"
+	"github.com/google/go-github/v52/github"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"golang.org/x/exp/slices"
