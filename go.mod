@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/google/go-github/v52 v52.0.0
-	github.com/hashicorp/vault/api v1.9.2
+	github.com/hashicorp/vault/api v1.10.0
 	github.com/mcuadros/go-defaults v1.2.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.7.0
