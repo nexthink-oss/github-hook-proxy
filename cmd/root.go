@@ -6,6 +6,7 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -51,15 +52,16 @@ func init() {
 }
 
 func runRootCmd(cmd *cobra.Command, args []string) (err error) {
-	logger = initZapLog()
-	zap.ReplaceGlobals(logger)
-	defer logger.Sync()
-
 	configName, _ := cmd.Flags().GetString("config")
+	configName = strings.TrimSuffix(configName, filepath.Ext(configName))
 	err = cfg.LoadConfig(configName)
 	if err != nil {
 		return errors.Wrap(err, "loading config")
 	}
+
+	logger = initZapLog()
+	zap.ReplaceGlobals(logger)
+	defer logger.Sync()
 
 	if dump, _ := cmd.Flags().GetBool("dump"); dump {
 		util.PrettyPrint(cfg)
@@ -100,6 +102,12 @@ func initZapLog() *zap.Logger {
 		config = zap.NewDevelopmentConfig()
 		config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
 		config.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+
+		if viper.GetBool("verbose") {
+			config.Level = zap.NewAtomicLevelAt(zap.DebugLevel)
+		} else {
+			config.Level = zap.NewAtomicLevelAt(zap.InfoLevel)
+		}
 	} else {
 		config = zap.NewProductionConfig()
 	}

@@ -1,11 +1,10 @@
 package config
 
 import (
+	"github.com/mcuadros/go-defaults"
 	"github.com/nexthink-oss/github-hook-proxy/internal/target"
 	"github.com/nexthink-oss/github-hook-proxy/internal/tls"
 	"github.com/nexthink-oss/github-hook-proxy/internal/vault"
-
-	"github.com/mcuadros/go-defaults"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
 )
@@ -14,6 +13,7 @@ type Config struct {
 	Listener Listener                  `mapstructure:"listener"`
 	Targets  map[string]*target.Target `mapstructure:"targets"`
 	Vault    vault.Vault               `mapstructure:"vault"`
+	Verbose  bool
 }
 
 type Listener struct {
@@ -34,6 +34,7 @@ func (c *Config) LoadConfig(configName string) (err error) {
 	viper.SetDefault("vault.mount", "secret")
 	viper.SetDefault("vault.secret", "github-hooks/%s")
 	viper.SetDefault("vault.field", "secret")
+	viper.SetDefault("verbose", false)
 
 	err = viper.ReadInConfig()
 	if err != nil {
