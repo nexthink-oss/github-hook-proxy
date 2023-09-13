@@ -22,7 +22,7 @@ The following root configuration keys are supported:
 * `listener`: (optional) listener configuration (default: `{address: 127.0.0.1, port: 8080, tls: {}}`)
 * `targets`: (required) list of targets (default: `[]`)
 * `vault`: (optional) vault configuration (default: `{}`)
-* `verbose`: (optional) if set, debug mode will be enabled (default: `true`)
+* `verbose`: (optional) if set, debug mode will be enabled (default: `false`)
 
 #### `listener`
 
