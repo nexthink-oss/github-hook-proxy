@@ -74,6 +74,7 @@ func runRootCmd(cmd *cobra.Command, args []string) (err error) {
 
 	h := http.NewServeMux()
 	for instance, target := range cfg.Targets {
+		target.LoggerLevel = logger.Level()
 		h.Handle(fmt.Sprintf("/%s", instance), target)
 	}
 	h.HandleFunc("/", Forbidden)
@@ -102,14 +103,14 @@ func initZapLog() *zap.Logger {
 		config = zap.NewDevelopmentConfig()
 		config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
 		config.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
-
-		if viper.GetBool("verbose") {
-			config.Level = zap.NewAtomicLevelAt(zap.DebugLevel)
-		} else {
-			config.Level = zap.NewAtomicLevelAt(zap.InfoLevel)
-		}
 	} else {
 		config = zap.NewProductionConfig()
+	}
+
+	if viper.GetBool("verbose") {
+		config.Level = zap.NewAtomicLevelAt(zap.DebugLevel)
+	} else {
+		config.Level = zap.NewAtomicLevelAt(zap.InfoLevel)
 	}
 	logger, _ := config.Build()
 	return logger

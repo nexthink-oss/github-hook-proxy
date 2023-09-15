@@ -2,23 +2,25 @@ package target
 
 import (
 	"bytes"
+	"go.uber.org/zap/zapcore"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/nexthink-oss/github-hook-proxy/internal/util"
 
 	"github.com/google/go-github/v55/github"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
-	"golang.org/x/exp/slices"
 )
 
 type Target struct {
-	Events  []string `default:"[ping,push,pull_request]" mapstructure:"events" yaml:",flow"`
-	Jenkins bool     `mapstructure:"jenkins-validation" yaml:"jenkins-validation,omitempty"`
-	Secret  *string  `mapstructure:"secret"`
-	URL     string   `mapstructure:"url"`
-	host    string
+	LoggerLevel zapcore.Level `mapstructure:"-"`
+	Events      []string      `default:"[ping,push,pull_request]" mapstructure:"events" yaml:",flow"`
+	Jenkins     bool          `mapstructure:"jenkins-validation" yaml:"jenkins-validation,omitempty"`
+	Secret      *string       `mapstructure:"secret"`
+	URL         string        `mapstructure:"url"`
+	host        string
 }
 
 func (t *Target) CheckPayload(r *http.Request) (payload []byte, err error) {
@@ -41,7 +43,9 @@ func (t *Target) FillHost() (err error) {
 }
 
 func (t *Target) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
-	logger := zap.L().With(zap.String("target", t.host), zap.String("method", req.Method))
+	logger := zap.L().
+		With(zap.String("target", t.host), zap.String("method", req.Method)).
+		WithOptions(zap.IncreaseLevel(t.LoggerLevel))
 
 	source, err := util.GetReqSource(req)
 	if err != nil {

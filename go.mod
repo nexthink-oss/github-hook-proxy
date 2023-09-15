@@ -1,6 +1,6 @@
 module github.com/nexthink-oss/github-hook-proxy
 
-go 1.19
+go 1.21
 
 require (
 	github.com/google/go-github/v55 v55.0.0
@@ -9,8 +9,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/viper v1.16.0
-	go.uber.org/zap v1.25.0
-	golang.org/x/exp v0.0.0-20230905200255-921286631fa9
+	go.uber.org/zap v1.26.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
