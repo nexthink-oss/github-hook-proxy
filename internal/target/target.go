@@ -3,6 +3,7 @@ package target
 import (
 	"bytes"
 	"go.uber.org/zap/zapcore"
+	"mime"
 	"net/http"
 	"net/url"
 	"slices"
@@ -24,6 +25,17 @@ type Target struct {
 }
 
 func (t *Target) CheckPayload(r *http.Request) (payload []byte, err error) {
+	if t.Secret != nil && *t.Secret == "" {
+		zap.L().
+			With(zap.String("target", t.host), zap.String("method", r.Method)).
+			WithOptions(zap.IncreaseLevel(t.LoggerLevel)).Warn("Payload validation is disabled...", zap.String("target", t.host))
+		contentType, _, err := mime.ParseMediaType(r.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		// Process payload but ignore payload validation
+		return github.ValidatePayloadFromBody(contentType, r.Body, "", []byte{})
+	}
 	return github.ValidatePayload(r, []byte(*t.Secret))
 }
 
@@ -61,6 +73,7 @@ func (t *Target) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 			rw.WriteHeader(http.StatusOK)
 			return
 		}
+		// Payload validation
 		payload, err := t.CheckPayload(req)
 		if err != nil {
 			logger.Debug("received invalid payload", zap.Error(err))

@@ -13,7 +13,7 @@ type Config struct {
 	Listener Listener                  `mapstructure:"listener"`
 	Targets  map[string]*target.Target `mapstructure:"targets"`
 	Vault    vault.Vault               `mapstructure:"vault"`
-	Verbose  bool
+	Verbose  bool                      `mapstructure:"verbose"`
 }
 
 type Listener struct {
