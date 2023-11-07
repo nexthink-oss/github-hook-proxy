@@ -7,7 +7,7 @@ require (
 	github.com/hashicorp/vault/api v1.10.0
 	github.com/mcuadros/go-defaults v1.2.0
 	github.com/pkg/errors v0.9.1
-	github.com/spf13/cobra v1.7.0
+	github.com/spf13/cobra v1.8.0
 	github.com/spf13/viper v1.17.0
 	go.uber.org/zap v1.26.0
 	gopkg.in/yaml.v3 v3.0.1
