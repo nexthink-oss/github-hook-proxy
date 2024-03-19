@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/google/go-github/v55 v55.0.0
-	github.com/hashicorp/vault/api v1.12.0
+	github.com/hashicorp/vault/api v1.12.1
 	github.com/mcuadros/go-defaults v1.2.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.8.0
