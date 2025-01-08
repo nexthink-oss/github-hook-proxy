@@ -2,11 +2,12 @@ package config
 
 import (
 	"github.com/mcuadros/go-defaults"
+	"github.com/pkg/errors"
+	"github.com/spf13/viper"
+
 	"github.com/nexthink-oss/github-hook-proxy/internal/target"
 	"github.com/nexthink-oss/github-hook-proxy/internal/tls"
 	"github.com/nexthink-oss/github-hook-proxy/internal/vault"
-	"github.com/pkg/errors"
-	"github.com/spf13/viper"
 )
 
 type Config struct {
