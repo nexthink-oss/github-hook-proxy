@@ -2,17 +2,17 @@ package target
 
 import (
 	"bytes"
-	"go.uber.org/zap/zapcore"
 	"mime"
 	"net/http"
 	"net/url"
 	"slices"
 
-	"github.com/nexthink-oss/github-hook-proxy/internal/util"
-
-	"github.com/google/go-github/v55/github"
+	"github.com/google/go-github/v68/github"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
+
+	"github.com/nexthink-oss/github-hook-proxy/internal/util"
 )
 
 type Target struct {

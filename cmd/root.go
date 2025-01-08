@@ -11,14 +11,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/nexthink-oss/github-hook-proxy/internal/config"
-	"github.com/nexthink-oss/github-hook-proxy/internal/util"
 	"github.com/pkg/errors"
-
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
+
+	"github.com/nexthink-oss/github-hook-proxy/internal/config"
+	"github.com/nexthink-oss/github-hook-proxy/internal/util"
 )
 
 var (
