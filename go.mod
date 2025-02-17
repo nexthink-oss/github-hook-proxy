@@ -6,7 +6,7 @@ toolchain go1.23.4
 
 require (
 	github.com/google/go-github/v68 v68.0.0
-	github.com/hashicorp/vault/api v1.15.0
+	github.com/hashicorp/vault/api v1.16.0
 	github.com/mcuadros/go-defaults v1.2.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.8.1
