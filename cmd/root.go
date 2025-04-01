@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net"
 	"net/http"
-	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -22,33 +21,24 @@ import (
 )
 
 var (
-	buildVersion string = "snapshot"
-	buildCommit  string = "unknown"
-	buildDate    string = "unknown"
-
 	cfg    config.Config
 	logger *zap.Logger
 )
 
-var rootCmd = &cobra.Command{
-	Use:          "github-hook-proxy",
-	Short:        "GitHub hook multiplex proxy with validation",
-	SilenceUsage: true,
-	Version:      fmt.Sprintf("%s-%s (built %s)", buildVersion, buildCommit, buildDate),
-	RunE:         runRootCmd,
-}
-
-func Execute() {
-	if err := rootCmd.Execute(); err != nil {
-		os.Exit(1)
+func New() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:          "github-hook-proxy",
+		Short:        "GitHub hook multiplex proxy with validation",
+		SilenceUsage: true,
+		RunE:         runRootCmd,
 	}
-}
 
-func init() {
 	cobra.OnInitialize(initViper)
 
-	rootCmd.Flags().StringP("config", "c", "config", "Configuration file name without extension")
-	rootCmd.Flags().Bool("dump", false, "Dump processed configuration and exit")
+	cmd.Flags().StringP("config", "c", "config", "Configuration file name without extension")
+	cmd.Flags().Bool("dump", false, "Dump processed configuration and exit")
+
+	return cmd
 }
 
 func runRootCmd(cmd *cobra.Command, args []string) (err error) {
