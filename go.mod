@@ -1,11 +1,12 @@
 module github.com/nexthink-oss/github-hook-proxy
 
-go 1.22.0
+go 1.23.0
+
 toolchain go1.24.1
 
 require (
 	github.com/google/go-github/v68 v68.0.0
-	github.com/hashicorp/vault/api v1.16.0
+	github.com/hashicorp/vault/api v1.20.0
 	github.com/mcuadros/go-defaults v1.2.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.9.1
@@ -28,7 +29,7 @@ require (
 	github.com/hashicorp/go-secure-stdlib/parseutil v0.1.8 // indirect
 	github.com/hashicorp/go-secure-stdlib/strutil v0.1.2 // indirect
 	github.com/hashicorp/go-sockaddr v1.0.7 // indirect
-	github.com/hashicorp/hcl v1.0.0 // indirect
+	github.com/hashicorp/hcl v1.0.1-vault-7 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
