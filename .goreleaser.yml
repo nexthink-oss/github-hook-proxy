@@ -9,7 +9,7 @@ builds:
     flags:
       - -trimpath
     ldflags:
-      - "-s -w -X github.com/nexthink-oss/github-hook-proxy/cmd.buildVersion={{.Version}} -X github.com/nexthink-oss/github-hook-proxy/cmd.buildCommit={{.ShortCommit}} -X github.com/nexthink-oss/github-hook-proxy/cmd.buildDate={{.Date}}"
+      - "-s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}"
     goos:
       - freebsd
       - linux
@@ -19,7 +19,8 @@ builds:
       - arm64
     binary: github-hook-proxy
 archives:
-  - format: zip
+  - formats:
+      - zip
     name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
 snapshot:
   version_template: "{{ .Tag }}-next"

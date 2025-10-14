@@ -10,7 +10,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-func PrettyPrint(obj interface{}) {
+func PrettyPrint(obj any) {
 	bytes, _ := yaml.Marshal(obj)
 	fmt.Println(string(bytes))
 }
