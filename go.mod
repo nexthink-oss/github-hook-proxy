@@ -4,7 +4,7 @@ go 1.25.3
 
 require (
 	github.com/google/go-github/v75 v75.0.0
-	github.com/hashicorp/vault/api v1.22.0
+	github.com/hashicorp/vault/api v1.23.0
 	github.com/mcuadros/go-defaults v1.2.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.10.2
